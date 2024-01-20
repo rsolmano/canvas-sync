@@ -14,19 +14,19 @@ import java.util.Optional;
 @Service
 public class OauthService {
 
-    private final CanvasOauthProperties canvasOauthProperties;
+    private final CanvasProperties canvasProperties;
     private final OauthRepository oauthRepository;
 
-    public OauthService(CanvasOauthProperties canvasOauthProperties, OauthRepository oauthRepository) {
-        this.canvasOauthProperties = canvasOauthProperties;
+    public OauthService(CanvasProperties canvasProperties, OauthRepository oauthRepository) {
+        this.canvasProperties = canvasProperties;
         this.oauthRepository = oauthRepository;
     }
 
-    public Optional<CanvasOauthEntity> getTokens(CanvasHost canvasHost) {
+    public Optional<CanvasOauthEntity> getTokens(String canvasHost) {
         return oauthRepository.getTokens(canvasHost);
     }
 
-    public Object getAuthUrl(CanvasHost canvasHost) {
+    public String getAuthUrl(String canvasHost) {
         try (OAuth20Service oauthService = configureOauthService(canvasHost)) {
             return oauthService.getAuthorizationUrl();
         } catch (IOException e) {
@@ -35,23 +35,23 @@ public class OauthService {
         }
     }
 
-    public void exchangeAuthCode(CanvasHost canvasHost, String authCode) {
+    public void exchangeAuthCode(String canvasHost, String authCode) {
         try (OAuth20Service oauthService = configureOauthService(canvasHost)) {
             val accessToken = oauthService.getAccessToken(authCode);
             oauthRepository.saveTokens(canvasHost, accessToken.getAccessToken(), accessToken.getRefreshToken());
-            log.info("Successfully saved tokens for host {}", canvasHost.name());
+            log.info("Successfully saved tokens for host {}", canvasHost);
         } catch (Exception e) {
             log.error("Error exchanging auth code", e);
             throw new RuntimeException(e);
         }
     }
 
-    public CanvasOauthEntity refreshTokens(CanvasHost canvasHost) {
+    public CanvasOauthEntity refreshTokens(String canvasHost) {
         try (OAuth20Service oauthService = configureOauthService(canvasHost)) {
             val oauthEntity = oauthRepository.getTokens(canvasHost).orElseThrow();
             val tokens = oauthService.refreshAccessToken(oauthEntity.getRefreshToken());
             val refreshedTokens = oauthRepository.updateAccessToken(canvasHost, tokens.getAccessToken());
-            log.info("Successfully refreshed tokens for host {}", canvasHost.name());
+            log.info("Successfully refreshed tokens for host {}", canvasHost);
             return refreshedTokens;
         } catch (Exception e) {
             log.error("Error refreshing tokens", e);
@@ -59,22 +59,21 @@ public class OauthService {
         }
     }
 
-    private OAuth20Service configureOauthService(CanvasHost canvasHost) {
-        val oauthConfig = canvasOauthProperties.config().get(canvasHost);
-        return new ServiceBuilder(oauthConfig.clientId())
-                .apiSecret(oauthConfig.clientSecret())
-                .callback(oauthConfig.callbackUrl())
-                .defaultScope(oauthConfig.scope())
+    private OAuth20Service configureOauthService(String canvasHost) {
+        return new ServiceBuilder(canvasProperties.clientId())
+                .apiSecret(canvasProperties.clientSecret())
+                .callback(canvasProperties.callbackUrl())
+                .defaultScope(canvasProperties.scope())
                 .build(
                         new DefaultApi20() {
                             @Override
                             public String getAccessTokenEndpoint() {
-                                return canvasHost.getHost() + "/login/oauth2/token";
+                                return canvasProperties.host() + "/login/oauth2/token";
                             }
 
                             @Override
                             protected String getAuthorizationBaseUrl() {
-                                return canvasHost.getHost() + "/login/oauth2/auth";
+                                return canvasProperties.host() + "/login/oauth2/auth";
                             }
                         }
                 );

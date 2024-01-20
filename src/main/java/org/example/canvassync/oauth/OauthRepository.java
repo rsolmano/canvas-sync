@@ -16,26 +16,26 @@ public class OauthRepository {
         this.jooq = jooq;
     }
 
-    public CanvasOauthEntity saveTokens(CanvasHost canvasHost, String accessToken, String refreshToken) {
+    public CanvasOauthEntity saveTokens(String canvasHost, String accessToken, String refreshToken) {
         return jooq.insertInto(OAUTH_TOKENS)
-                .set(OAUTH_TOKENS.CANVAS_HOST, canvasHost.name())
+                .set(OAUTH_TOKENS.CANVAS_HOST, canvasHost)
                 .set(OAUTH_TOKENS.ACCESS_TOKEN, accessToken)
                 .set(OAUTH_TOKENS.REFRESH_TOKEN, refreshToken)
                 .returning()
                 .fetchOneInto(CanvasOauthEntity.class);
     }
 
-    public CanvasOauthEntity updateAccessToken(CanvasHost canvasHost, String accessToken) {
+    public CanvasOauthEntity updateAccessToken(String canvasHost, String accessToken) {
         return jooq.update(OAUTH_TOKENS)
                 .set(OAUTH_TOKENS.ACCESS_TOKEN, accessToken)
-                .where(OAUTH_TOKENS.CANVAS_HOST.eq(canvasHost.name()))
+                .where(OAUTH_TOKENS.CANVAS_HOST.eq(canvasHost))
                 .returning()
                 .fetchOneInto(CanvasOauthEntity.class);
     }
 
-    public Optional<CanvasOauthEntity> getTokens(CanvasHost canvasHost) {
+    public Optional<CanvasOauthEntity> getTokens(String canvasHost) {
         return jooq.selectFrom(OAUTH_TOKENS)
-                .where(OAUTH_TOKENS.CANVAS_HOST.eq(canvasHost.name()))
+                .where(OAUTH_TOKENS.CANVAS_HOST.eq(canvasHost))
                 .fetchOptionalInto(CanvasOauthEntity.class);
     }
 

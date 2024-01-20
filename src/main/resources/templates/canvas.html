@@ -17,6 +17,9 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-4 text-center border-box">
+      <div>
+        <h4>Host: <span class="text-muted" th:text="${canvasHost}" /></h4>
+      </div>
       <div th:if="${!isAuthed}">
         <button id="loginButton" class="btn btn-primary">Login with Canvas</button>
       </div>
@@ -28,7 +31,6 @@
 </div>
 
 <script th:inline="javascript">
-  const canvasHost = [[${canvasHost}]]
   const oauthUrl = [[${oauthUrl}]]
 
   $(document).ready(function () {
@@ -42,7 +44,6 @@
         url: `/sync`,
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({ canvasHost: canvasHost }),
         success: function (response) {
           alert('Sync completed')
         },

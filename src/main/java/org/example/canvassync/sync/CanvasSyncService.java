@@ -6,7 +6,7 @@ import org.example.canvassync.canvasclient.AccountEntity;
 import org.example.canvassync.canvasclient.CanvasClient;
 import org.example.canvassync.canvasclient.CourseEntity;
 import org.example.canvassync.db.tables.records.CanvasEnrollmentsRecord;
-import org.example.canvassync.oauth.CanvasHost;
+import org.example.canvassync.oauth.CanvasProperties;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
@@ -20,24 +20,29 @@ public class CanvasSyncService {
     private final AccountsRepository accountsRepository;
     private final CoursesRepository coursesRepository;
     private final EnrollmentsRepository enrollmentsRepository;
+    private final CanvasProperties canvasProperties;
 
-    public CanvasSyncService(CanvasClient canvasClient, AccountsRepository accountsRepository, CoursesRepository coursesRepository, EnrollmentsRepository enrollmentsRepository) {
+
+    public CanvasSyncService(CanvasClient canvasClient, AccountsRepository accountsRepository, CoursesRepository coursesRepository, EnrollmentsRepository enrollmentsRepository, CanvasProperties canvasProperties) {
         this.canvasClient = canvasClient;
         this.accountsRepository = accountsRepository;
         this.coursesRepository = coursesRepository;
         this.enrollmentsRepository = enrollmentsRepository;
+        this.canvasProperties = canvasProperties;
     }
 
-    public CanvasSyncResult sync(CanvasHost canvasHost) {
-        log.info("Syncing canvas objects: {}", canvasHost);
-        val accounts = syncAccounts(canvasHost);
-        val courses = syncCourses(canvasHost);
-        return new CanvasSyncResult(accounts.size(), courses.size());
+    public CanvasSyncResult sync() {
+        log.info("Syncing canvas host: {}", canvasProperties.host());
+        val accounts = syncAccounts();
+        val courses = syncCourses();
+        val result = new CanvasSyncResult(accounts.size(), courses.size());
+        log.info("Sync result: {}", result);
+        return result;
     }
 
     @NotNull
-    private List<CourseEntity> syncCourses(CanvasHost canvasHost) {
-        List<CourseEntity> courses = canvasClient.getCourses(canvasHost);
+    private List<CourseEntity> syncCourses() {
+        List<CourseEntity> courses = canvasClient.getCourses();
         coursesRepository.insertOrUpdateBatch(courses);
         log.info("Synced {} courses", courses.size());
 
@@ -56,8 +61,8 @@ public class CanvasSyncService {
     }
 
     @NotNull
-    private List<AccountEntity> syncAccounts(CanvasHost canvasHost) {
-        List<AccountEntity> accounts = canvasClient.getAccounts(canvasHost);
+    private List<AccountEntity> syncAccounts() {
+        List<AccountEntity> accounts = canvasClient.getAccounts();
         accountsRepository.insertOrUpdateBatch(accounts);
         log.info("Synced {} accounts", accounts.size());
         return accounts;

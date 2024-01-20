@@ -11,14 +11,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class OauthCallbackController {
 
     private final OauthService oauthService;
+    private final CanvasProperties canvasProperties;
 
-    public OauthCallbackController(OauthService oauthService) {
+    public OauthCallbackController(OauthService oauthService, CanvasProperties canvasProperties) {
         this.oauthService = oauthService;
+        this.canvasProperties = canvasProperties;
     }
 
-    @GetMapping("/{canvasHost}")
-    public String exchangeAuthCode(@PathVariable String canvasHost, @RequestParam String code) {
-        oauthService.exchangeAuthCode(CanvasHost.from(canvasHost), code);
+    @GetMapping
+    public String exchangeAuthCode(@RequestParam String code) {
+        oauthService.exchangeAuthCode(canvasProperties.host(), code);
         return "redirect:/";
     }
 }

@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class CanvasOauthEntity {
-    private CanvasHost canvasHost;
+    private String canvasHost;
     private String accessToken;
     private String refreshToken;
 }

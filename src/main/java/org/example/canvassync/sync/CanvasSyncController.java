@@ -2,7 +2,7 @@ package org.example.canvassync.sync;
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.example.canvassync.oauth.CanvasHost;
+import org.example.canvassync.oauth.CanvasProperties;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,16 +19,11 @@ public class CanvasSyncController {
     }
 
     @PostMapping(value = "/sync", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<SyncResponse> sync(@RequestBody SyncRequest request) {
-        log.info("Syncing canvas host: {}", request.canvasHost());
-        val result = canvasSyncService.sync(request.canvasHost());
-        log.info("Sync result: {}", result);
+    public ResponseEntity<SyncResponse> sync() {
+        val result = canvasSyncService.sync();
         return ResponseEntity.ok(SyncResponse.from(result));
     }
 
-
-    public record SyncRequest(CanvasHost canvasHost) {
-    }
 
     public record SyncResponse(
             long syncedAccounts,
