@@ -5,10 +5,11 @@ import org.example.canvassync.db.tables.records.CanvasAccountsRecord;
 import org.jetbrains.annotations.NotNull;
 import org.jooq.DSLContext;
 import org.jooq.InsertOnDuplicateSetMoreStep;
-import org.jooq.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
+import static org.example.canvassync.db.tables.CanvasAccounts.CANVAS_ACCOUNTS;
 
 @Repository
 public class AccountsRepository {
@@ -48,9 +49,14 @@ public class AccountsRepository {
         ).execute();
     }
 
+    public List<CanvasAccountsRecord> getAll() {
+        return jooq.selectFrom(CANVAS_ACCOUNTS)
+                .fetchInto(CanvasAccountsRecord.class);
+    }
+
     @NotNull
     private InsertOnDuplicateSetMoreStep<CanvasAccountsRecord> prepareQuery(CanvasAccountsRecord canvasAccountsRecord) {
-        return jooq.insertInto(org.example.canvassync.db.tables.CanvasAccounts.CANVAS_ACCOUNTS)
+        return jooq.insertInto(CANVAS_ACCOUNTS)
                 .set(canvasAccountsRecord)
                 .onDuplicateKeyUpdate()
                 .set(canvasAccountsRecord);

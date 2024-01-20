@@ -10,7 +10,7 @@ import static org.example.canvassync.db.tables.OauthTokens.OAUTH_TOKENS;
 @Repository
 public class OauthRepository {
 
-    public DSLContext jooq;
+    private final DSLContext jooq;
 
     public OauthRepository(DSLContext jooq) {
         this.jooq = jooq;

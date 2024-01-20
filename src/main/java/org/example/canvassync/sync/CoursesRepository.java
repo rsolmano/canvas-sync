@@ -70,6 +70,11 @@ public class CoursesRepository {
         ).execute();
     }
 
+    public List<CanvasCoursesRecord> getAll() {
+        return jooq.selectFrom(CANVAS_COURSES)
+                .fetchInto(CanvasCoursesRecord.class);
+    }
+
     @NotNull
     private InsertOnDuplicateSetMoreStep<CanvasCoursesRecord> prepareQuery(CanvasCoursesRecord record) {
         return jooq.insertInto(CANVAS_COURSES)

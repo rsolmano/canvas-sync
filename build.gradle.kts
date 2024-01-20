@@ -1,7 +1,7 @@
 plugins {
     java
-    id("org.springframework.boot") version "3.2.1"
-    id("io.spring.dependency-management") version "1.1.4"
+    id("org.springframework.boot") version "3.1.4"
+    id("io.spring.dependency-management") version "1.1.2"
     id("com.revolut.jooq-docker") version "0.3.9"
     id("io.freefair.lombok") version "8.4"
 }
@@ -37,7 +37,13 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     jdbc("org.postgresql:postgresql")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation(platform("org.testcontainers:testcontainers-bom:1.19.0"))
+    testImplementation("org.testcontainers:postgresql")
+    testImplementation("org.testcontainers:junit-jupiter")
+    testImplementation("org.wiremock:wiremock:3.3.1")
+
 }
 
 tasks {

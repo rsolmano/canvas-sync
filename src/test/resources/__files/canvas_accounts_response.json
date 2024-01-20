@@ -1,0 +1,26 @@
+[
+  {
+    "id": 2,
+    "name": "Site Admin",
+    "workflow_state": "active",
+    "parent_account_id": null,
+    "root_account_id": null,
+    "uuid": "WC8TAtSlTh6d2Ttv3Fe4ocAYVSh9REldtDyDj9sf",
+    "default_storage_quota_mb": 500,
+    "default_user_storage_quota_mb": 50,
+    "default_group_storage_quota_mb": 50,
+    "default_time_zone": "America/Denver"
+  },
+  {
+    "id": 1,
+    "name": "tpl",
+    "workflow_state": "active",
+    "parent_account_id": null,
+    "root_account_id": null,
+    "uuid": "K8Gy1ht0d6MwxzotrFAa2P4g2yAePqszv8QFpBDW",
+    "default_storage_quota_mb": 500,
+    "default_user_storage_quota_mb": 50,
+    "default_group_storage_quota_mb": 50,
+    "default_time_zone": "America/Denver"
+  }
+]

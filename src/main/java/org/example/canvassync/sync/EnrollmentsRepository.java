@@ -40,6 +40,11 @@ public class EnrollmentsRepository {
         ).execute();
     }
 
+    public List<CanvasEnrollmentsRecord> getAll() {
+        return jooq.selectFrom(CANVAS_ENROLLMENTS)
+                .fetchInto(CanvasEnrollmentsRecord.class);
+    }
+
     @NotNull
     private InsertOnDuplicateSetMoreStep<CanvasEnrollmentsRecord> prepareQuery(CanvasEnrollmentsRecord record) {
         return jooq.insertInto(CANVAS_ENROLLMENTS)

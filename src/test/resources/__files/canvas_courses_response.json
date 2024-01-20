@@ -1,0 +1,209 @@
+[
+  {
+    "id": 8,
+    "name": "Biology 2022",
+    "account_id": 3,
+    "uuid": "CPego4dWqn5PtByVsGPS23hlNUBe9PDHsovRgCQm",
+    "start_at": "2022-05-07T20:20:45Z",
+    "grading_standard_id": null,
+    "is_public": false,
+    "created_at": "2022-05-07T20:20:42Z",
+    "course_code": "Biology 2022",
+    "default_view": "modules",
+    "root_account_id": 1,
+    "enrollment_term_id": 1,
+    "license": "private",
+    "end_at": null,
+    "public_syllabus": false,
+    "public_syllabus_to_auth": false,
+    "storage_quota_mb": 500,
+    "is_public_to_auth_users": false,
+    "apply_assignment_group_weights": false,
+    "calendar": {
+      "ics": "http://3.231.151.15/feeds/calendars/course_CPego4dWqn5PtByVsGPS23hlNUBe9PDHsovRgCQm.ics"
+    },
+    "time_zone": "America/Denver",
+    "blueprint": false,
+    "sis_course_id": null,
+    "sis_import_id": null,
+    "integration_id": null,
+    "enrollments": [
+      {
+        "type": "teacher",
+        "role": "TeacherEnrollment",
+        "role_id": 4,
+        "user_id": 1,
+        "enrollment_state": "active"
+      }
+    ],
+    "hide_final_grades": false,
+    "workflow_state": "available",
+    "restrict_enrollments_to_course_dates": false
+  },
+  {
+    "id": 1,
+    "name": "CanvasCourse",
+    "account_id": 1,
+    "uuid": "7h6o1cnZrRK9zfjbjJc7bc599OA5PfJhXdfxoWwO",
+    "start_at": "2019-08-20T14:26:00Z",
+    "grading_standard_id": null,
+    "is_public": false,
+    "created_at": "2019-08-17T14:19:46Z",
+    "course_code": "COD1",
+    "default_view": "modules",
+    "root_account_id": 1,
+    "enrollment_term_id": 1,
+    "license": "private",
+    "end_at": null,
+    "public_syllabus": false,
+    "public_syllabus_to_auth": false,
+    "storage_quota_mb": 500,
+    "is_public_to_auth_users": false,
+    "apply_assignment_group_weights": false,
+    "calendar": {
+      "ics": "http://3.231.151.15/feeds/calendars/course_7h6o1cnZrRK9zfjbjJc7bc599OA5PfJhXdfxoWwO.ics"
+    },
+    "time_zone": "America/Denver",
+    "blueprint": false,
+    "sis_course_id": null,
+    "sis_import_id": null,
+    "integration_id": null,
+    "enrollments": [
+      {
+        "type": "teacher",
+        "role": "TeacherEnrollment",
+        "role_id": 4,
+        "user_id": 1,
+        "enrollment_state": "active"
+      }
+    ],
+    "hide_final_grades": false,
+    "workflow_state": "unpublished",
+    "restrict_enrollments_to_course_dates": false,
+    "overridden_course_visibility": ""
+  },
+  {
+    "id": 2,
+    "name": "Course2",
+    "account_id": 3,
+    "uuid": "IRWEtJGpdgVcE5oOqY9Z2kuAg5kUcfYhFf8SHRNo",
+    "start_at": "2020-02-01T12:55:00Z",
+    "grading_standard_id": null,
+    "is_public": true,
+    "created_at": "2019-11-13T15:37:38Z",
+    "course_code": "Edited by Nodir",
+    "default_view": "modules",
+    "root_account_id": 1,
+    "enrollment_term_id": 1,
+    "license": "private",
+    "end_at": null,
+    "public_syllabus": true,
+    "public_syllabus_to_auth": false,
+    "storage_quota_mb": 500,
+    "is_public_to_auth_users": false,
+    "apply_assignment_group_weights": false,
+    "calendar": {
+      "ics": "http://3.231.151.15/feeds/calendars/course_IRWEtJGpdgVcE5oOqY9Z2kuAg5kUcfYhFf8SHRNo.ics"
+    },
+    "time_zone": "America/Denver",
+    "blueprint": false,
+    "sis_course_id": null,
+    "sis_import_id": null,
+    "integration_id": null,
+    "enrollments": [
+      {
+        "type": "teacher",
+        "role": "TeacherEnrollment",
+        "role_id": 4,
+        "user_id": 1,
+        "enrollment_state": "active"
+      }
+    ],
+    "hide_final_grades": false,
+    "workflow_state": "available",
+    "restrict_enrollments_to_course_dates": false,
+    "overridden_course_visibility": ""
+  },
+  {
+    "id": 6,
+    "name": "History",
+    "account_id": 3,
+    "uuid": "m9VnboDorafCEsCsCvQgpQOEo6qSfNl0u3njaGB5",
+    "start_at": "2022-05-07T16:47:46Z",
+    "grading_standard_id": null,
+    "is_public": true,
+    "created_at": "2022-05-07T16:47:37Z",
+    "course_code": "History",
+    "default_view": "modules",
+    "root_account_id": 1,
+    "enrollment_term_id": 1,
+    "license": "private",
+    "end_at": null,
+    "public_syllabus": false,
+    "public_syllabus_to_auth": false,
+    "storage_quota_mb": 500,
+    "is_public_to_auth_users": false,
+    "apply_assignment_group_weights": false,
+    "calendar": {
+      "ics": "http://3.231.151.15/feeds/calendars/course_m9VnboDorafCEsCsCvQgpQOEo6qSfNl0u3njaGB5.ics"
+    },
+    "time_zone": "America/Denver",
+    "blueprint": false,
+    "sis_course_id": null,
+    "sis_import_id": null,
+    "integration_id": null,
+    "enrollments": [
+      {
+        "type": "teacher",
+        "role": "TeacherEnrollment",
+        "role_id": 4,
+        "user_id": 1,
+        "enrollment_state": "active"
+      }
+    ],
+    "hide_final_grades": false,
+    "workflow_state": "available",
+    "restrict_enrollments_to_course_dates": false
+  },
+  {
+    "id": 18,
+    "name": "NewCourse1",
+    "account_id": 3,
+    "uuid": "HKtrG9aBAuyz1WkI7gUI6QAloB5fSZtXo5cPMzxo",
+    "start_at": "2023-07-17T09:40:14Z",
+    "grading_standard_id": null,
+    "is_public": true,
+    "created_at": "2023-07-17T09:40:05Z",
+    "course_code": "NewCourse1",
+    "default_view": "modules",
+    "root_account_id": 1,
+    "enrollment_term_id": 1,
+    "license": "private",
+    "end_at": null,
+    "public_syllabus": false,
+    "public_syllabus_to_auth": false,
+    "storage_quota_mb": 500,
+    "is_public_to_auth_users": false,
+    "apply_assignment_group_weights": false,
+    "calendar": {
+      "ics": "http://3.231.151.15/feeds/calendars/course_HKtrG9aBAuyz1WkI7gUI6QAloB5fSZtXo5cPMzxo.ics"
+    },
+    "time_zone": "America/Denver",
+    "blueprint": false,
+    "sis_course_id": null,
+    "sis_import_id": null,
+    "integration_id": null,
+    "enrollments": [
+      {
+        "type": "teacher",
+        "role": "TeacherEnrollment",
+        "role_id": 4,
+        "user_id": 1,
+        "enrollment_state": "active"
+      }
+    ],
+    "hide_final_grades": false,
+    "workflow_state": "available",
+    "restrict_enrollments_to_course_dates": false
+  }
+]
