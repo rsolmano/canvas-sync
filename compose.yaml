@@ -1,0 +1,9 @@
+services:
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: canvas
+      POSTGRES_PASSWORD: canvas_password
+      POSTGRES_DB: canvas
+    ports:
+      - "5437:5432"

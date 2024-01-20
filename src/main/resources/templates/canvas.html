@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Canvas Integration</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <style>
+      .border-box {
+          border: 2px solid #ddd;
+          padding: 20px;
+          border-radius: 5px;
+          margin-top: 20vh;
+      }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-4 text-center border-box">
+      <div th:if="${!isAuthed}">
+        <button id="loginButton" class="btn btn-primary">Login with Canvas</button>
+      </div>
+      <div th:if="${isAuthed}">
+        <button id="syncButton" class="btn btn-success">Sync Canvas</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script th:inline="javascript">
+  const canvasHost = [[${canvasHost}]]
+  const oauthUrl = [[${oauthUrl}]]
+
+  $(document).ready(function () {
+    $('#loginButton').click(function () {
+      window.location.href = oauthUrl
+    })
+
+    $('#syncButton').click(function () {
+      $(this).prop('disabled', true)
+      $.ajax({
+        url: `/sync`,
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ canvasHost: canvasHost }),
+        success: function (response) {
+          alert('Sync completed')
+        },
+        error: function (error) {
+          console.log('Error during sync: ', error)
+          alert('Error during sync: ' + error)
+        },
+        complete: function () {
+          $('#syncButton').prop('disabled', false)
+        }
+      })
+    })
+  })
+</script>
+</body>
+</html>
