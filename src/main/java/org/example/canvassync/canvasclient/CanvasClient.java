@@ -5,6 +5,7 @@ import org.example.canvassync.oauth.CanvasHost;
 import java.util.List;
 
 public interface CanvasClient {
-    public List<AccountEntity> getAccounts(CanvasHost canvasHost);
-    public List<CourseEntity> getCourses(CanvasHost canvasHost);
+    List<AccountEntity> getAccounts(CanvasHost canvasHost);
+
+    List<CourseEntity> getCourses(CanvasHost canvasHost);
 }

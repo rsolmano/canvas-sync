@@ -27,16 +27,18 @@ public class CanvasOkhttpClient implements CanvasClient {
 
     @Override
     public List<AccountEntity> getAccounts(CanvasHost canvasHost) {
-        return getResource(canvasHost, "accounts");
+        return getResource(canvasHost, "accounts", new TypeReference<List<AccountEntity>>() {
+        });
     }
 
     @Override
     public List<CourseEntity> getCourses(CanvasHost canvasHost) {
-        return getResource(canvasHost, "courses");
+        return getResource(canvasHost, "courses", new TypeReference<List<CourseEntity>>() {
+        });
     }
 
     @SneakyThrows(IOException.class)
-    private <T> List<T> getResource(CanvasHost canvasHost, String resourceName) {
+    private <T> List<T> getResource(CanvasHost canvasHost, String resourceName, TypeReference<List<T>> type) {
 
         val tokens = oauthService.getTokens(canvasHost).orElseThrow(() -> new RuntimeException("No tokens for host " + canvasHost.name()));
         OkHttpClient client = new OkHttpClient();
@@ -49,12 +51,11 @@ public class CanvasOkhttpClient implements CanvasClient {
         try (Response response = client.newCall(request).execute()) {
             if (response.code() == 401) {
                 oauthService.refreshTokens(canvasHost);
-                return getResource(canvasHost, resourceName);
+                return getResource(canvasHost, resourceName, type);
             }
 
             val responseAsString = response.body().string();
-            return objectMapper.readValue(responseAsString, new TypeReference<>() {
-            });
+            return objectMapper.readValue(responseAsString, type);
         }
     }
 }

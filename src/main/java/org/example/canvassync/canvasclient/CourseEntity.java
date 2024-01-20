@@ -2,21 +2,22 @@ package org.example.canvassync.canvasclient;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public record CourseEntity(
 
         @JsonProperty("root_account_id")
-        Long rootAccountId,
+        Integer rootAccountId,
 
         @JsonProperty("storage_quota_mb")
-        Long storageQuotaMb,
+        Integer storageQuotaMb,
 
         @JsonProperty("end_at")
-        String endAt,
+        LocalDateTime endAt,
 
         @JsonProperty("integration_id")
-        Long integrationId,
+        Integer integrationId,
 
         @JsonProperty("public_syllabus_to_auth")
         Boolean publicSyllabusToAuth,
@@ -25,16 +26,16 @@ public record CourseEntity(
         Boolean publicSyllabus,
 
         @JsonProperty("created_at")
-        String createdAt,
+        LocalDateTime createdAt,
 
         @JsonProperty("sis_course_id")
-        Long sisCourseId,
+        Integer sisCourseId,
 
         @JsonProperty("start_at")
-        String startAt,
+        LocalDateTime startAt,
 
         @JsonProperty("enrollment_term_id")
-        Long enrollmentTermId,
+        Integer enrollmentTermId,
 
         @JsonProperty("uuid")
         String uuid,
@@ -43,16 +44,16 @@ public record CourseEntity(
         String courseCode,
 
         @JsonProperty("grading_standard_id")
-        Long gradingStandardId,
+        Integer gradingStandardId,
 
         @JsonProperty("workflow_state")
         String workflowState,
 
         @JsonProperty("id")
-        Long id,
+        Integer id,
 
         @JsonProperty("sis_import_id")
-        Long sisImportId,
+        Integer sisImportId,
 
         @JsonProperty("default_view")
         String defaultView,
@@ -76,7 +77,7 @@ public record CourseEntity(
         String timeZone,
 
         @JsonProperty("enrollments")
-        List<EnrollmentsItem> enrollments,
+        List<EnrolmentsItem> enrollments,
 
         @JsonProperty("blueprint")
         Boolean blueprint,
@@ -85,7 +86,7 @@ public record CourseEntity(
         String license,
 
         @JsonProperty("account_id")
-        Long accountId,
+        Integer accountId,
 
         @JsonProperty("name")
         String name,
@@ -95,25 +96,6 @@ public record CourseEntity(
 
         @JsonProperty("overridden_course_visibility")
         String overriddenCourseVisibility
-) {
-}
-
-record EnrollmentsItem(
-
-        @JsonProperty("role")
-        String role,
-
-        @JsonProperty("enrollment_state")
-        String enrollmentState,
-
-        @JsonProperty("role_id")
-        Integer roleId,
-
-        @JsonProperty("user_id")
-        Integer userId,
-
-        @JsonProperty("type")
-        String type
 ) {
 }
 
