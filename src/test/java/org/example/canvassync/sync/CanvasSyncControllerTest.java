@@ -13,6 +13,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
@@ -59,6 +60,9 @@ class CanvasSyncControllerTest {
     @Autowired
     private EnrollmentsRepository enrollmentsRepository;
 
+    @Value("${backend.api-key}")
+    private String apiKey;
+
     @AfterEach
     void cleanup() {
         cleanAllCanvasObjects();
@@ -76,10 +80,15 @@ class CanvasSyncControllerTest {
         mockCanvasAPICalls(accessToken);
 
         //when
-        mockMvc.perform(post("/sync").contentType("application/json"))
-                .andExpect(status().isOk());
+        mockMvc.perform(
+                        post("/sync")
+                                .contentType("application/json")
+                                .header("X-API-KEY", apiKey)
+                )
 
         //then
+                .andExpect(status().isOk());
+
         val accounts = accountsRepository.getAll();
         Assertions.assertEquals(2, accounts.size());
     }
@@ -94,15 +103,41 @@ class CanvasSyncControllerTest {
         mockCanvasAPICalls(accessToken);
 
         //when
-        mockMvc.perform(post("/sync").contentType("application/json"))
-                .andExpect(status().isOk());
+        mockMvc.perform(
+                        post("/sync")
+                                .contentType("application/json")
+                                .header("X-API-KEY", apiKey)
+                )
 
         //then
+                .andExpect(status().isOk());
+
         val courses = coursesRepository.getAll();
         Assertions.assertEquals(5, courses.size());
 
         val enrolments = enrollmentsRepository.getAll();
         Assertions.assertEquals(5, enrolments.size());
+    }
+
+    @SneakyThrows
+    void syncShouldRespondWith401IfNoApiKeyProvided() {
+        //given
+        val accessToken = RandomStringUtils.randomAlphanumeric(10);
+        val refreshToken = RandomStringUtils.randomAlphanumeric(10);
+        oauthRepository.saveTokens(canvasProperties.host(), accessToken, refreshToken);
+        mockCanvasAPICalls(accessToken);
+
+        //when
+        mockMvc.perform(
+                        post("/sync")
+                                .contentType("application/json")
+                )
+
+        //then
+                .andExpect(status().isUnauthorized());
+
+        val accounts = accountsRepository.getAll();
+        Assertions.assertEquals(2, accounts.size());
     }
 
     private void mockCanvasAPICalls(String accessToken) {
